@@ -1,0 +1,60 @@
+DROP SCHEMA IF EXISTS oblig2024;
+CREATE SCHEMA oblig2024;
+
+USE oblig2024;
+
+CREATE TABLE Bilde
+(
+BildeID CHAR(6),
+Beskrivelse CHAR(30),
+OpplastetDato DATE,
+Fotograf CHAR(6) NOT NULL,
+CONSTRAINT BildePK PRIMARY KEY(BildeID),
+CONSTRAINT BildeBrukerFK FOREIGN KEY(Fotograf) REFERENCES Bruker(BrukerID)
+);
+
+CREATE TABLE Bruker
+(
+BrukerID CHAR(6),
+Fornavn CHAR(30) NOT NULL,
+Etternavn CHAR(20) NOT NULL,
+Epost CHAR(40) NOT NULL,
+CONSTRAINT BrukerPK PRIMARY KEY(BrukerID)
+);
+
+CREATE TABLE Likes
+(
+BildeID CHAR(6),
+BrukerID CHAR(6),
+CONSTRAINT LikesPK PRIMARY KEY (BildeID,BrukerID),
+CONSTRAINT LikesBildeFK FOREIGN KEY(BildeID) REFERENCES Bilde(BildeID),
+CONSTRAINT LikesBrukerFK FOREIGN KEY(BrukerID) REFERENCES Bruker(BrukerID)
+);
+
+CREATE TABLE Kommentar
+(
+BildeID CHAR(6),
+BrukerID CHAR(6),
+Kommentaren VARCHAR(40),
+CONSTRAINT KommentarPK PRIMARY KEY (BildeID, BrukerID),
+CONSTRAINT KommentarBildeFK FOREIGN KEY (BildeID) REFERENCES Bilde(BildeID),
+CONSTRAINT KommentarBrukerFK FOREIGN KEY (BrukerID) REFERENCES Bruker(BrukerID)
+);
+
+CREATE TABLE Emneknagg
+(
+EmneknaggID CHAR(6),
+Emneknaggen VARCHAR(40) NOT NULL,
+CONSTRAINT EmneknaggPK PRIMARY KEY(EmneknaggID)
+);
+
+
+CREATE TABLE TagForBilde
+(
+BildeID CHAR(6),
+EmneknaggID CHAR(6),
+CONSTRAINT TagForBildePK PRIMARY KEY (BildeID, EmneknaggID), 
+CONSTRAINT TagForBildeBildeFK FOREIGN KEY (BildeID) REFERENCES Bilde(BildeID),
+CONSTRAINT TagForBildeEmneknaggFK FOREIGN KEY (EmneknaggID) REFERENCES Emneknagg(EmneknaggID)
+);
+
