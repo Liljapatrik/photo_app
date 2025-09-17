@@ -66,7 +66,7 @@ pip install mysql-connector-python
 
 ### Database Setup
 1. Create a MySQL database.
-2. Run the provided SQL scripts to create the tables:
+2. Run the provided SQL scripts (SCRIPTS 1-Tabell.sql & SCRIPT INSERT INTO.sql) to create the tables:
     - Bilde
     - Bruker
     - Likes
